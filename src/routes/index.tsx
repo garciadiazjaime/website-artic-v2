@@ -130,6 +130,7 @@ const Questions = component$<QuestionsProps>((props) => {
       marginBottom: "0.5rem",
       transition: "all 0.2s",
       fontSize: "0.95rem",
+      color: colors.text.primary,
     };
   };
 
@@ -414,7 +415,7 @@ export default component$(() => {
           width: "100%",
           height: "auto",
           display: "block",
-          maxHeight: "46vh",
+          maxHeight: "42vh",
         }}
         width={IMAGE_WIDTH}
         height={IMAGE_HEIGHT}
