@@ -48,9 +48,9 @@ interface Quiz {
   provenance: string[];
 }
 
-export const useQuiz = routeLoader$(async () => {
+export const useQuiz = routeLoader$(async ({ env }) => {
   const today = new Date().toJSON().split("T")[0];
-  const url = `${process.env.QUIZ_URL}/${today}.json`;
+  const url = `${env.get("QUIZ_URL")}/${today}.json`;
   const response = await fetch(url);
   return (await response.json()) as Quiz;
 });
