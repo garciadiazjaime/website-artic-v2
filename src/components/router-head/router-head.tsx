@@ -11,6 +11,18 @@ export const RouterHead = component$(() => {
   return (
     <>
       <title>{head.title}</title>
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-BW1L0FMMNM"
+      />
+      <script
+        dangerouslySetInnerHTML={`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BW1L0FMMNM');
+    `}
+      />
 
       <link rel="canonical" href={loc.url.href} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />

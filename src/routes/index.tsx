@@ -1,5 +1,5 @@
 import { component$, useSignal } from "@builder.io/qwik";
-import { routeLoader$ } from "@builder.io/qwik-city";
+import { routeLoader$, type DocumentHead } from "@builder.io/qwik-city";
 import type { Signal } from "@builder.io/qwik";
 
 import colors from "../colors.ts";
@@ -355,6 +355,17 @@ const Results = component$<ResultsProps>((props) => {
     </>
   );
 });
+
+export const head: DocumentHead = {
+  title: "Seven Questions a Day from the Art Institute of Chicago",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Built this simple quiz app to test your knowledge about famous artworks from the Art Institute of Chicago.",
+    },
+  ],
+};
 
 export default component$(() => {
   const showResultsSignal = useSignal(false);
