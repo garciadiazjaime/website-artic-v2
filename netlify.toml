@@ -2,12 +2,9 @@
 publish = "dist"
 command = "npm run build"
 
-[functions]
-  # Make environment variables available to edge functions
-  included_files = ["**/*.json"]
-  
+[context.production.environment]
+  QUIZ_URL = "${QUIZ_URL}"
+
 [[edge_functions]]
   path = "/*"
   function = "entry.netlify-edge"
-  [edge_functions.environment]
-    QUIZ_URL = "${QUIZ_URL}"
