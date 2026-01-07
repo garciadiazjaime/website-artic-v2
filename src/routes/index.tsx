@@ -263,7 +263,7 @@ const Results = component$<ResultsProps>((props) => {
       <div
         style={{
           backgroundColor: colors.bg.primary,
-          padding: ".75rem",
+          padding: ".5rem",
           marginBottom: "1rem",
           border: `2px solid ${colors.primary}`,
           textAlign: "center",
@@ -295,7 +295,7 @@ const Results = component$<ResultsProps>((props) => {
       <div
         style={{
           backgroundColor: colors.bg.page,
-          padding: ".75rem",
+          padding: ".5rem",
           marginBottom: "1rem",
           border: `2px solid ${colors.border}`,
           borderRadius: "8px",
@@ -327,7 +327,7 @@ const Results = component$<ResultsProps>((props) => {
       <div
         style={{
           backgroundColor: colors.bg.page,
-          padding: "1rem",
+          padding: ".5rem",
           border: `2px solid ${colors.border}`,
           borderRadius: "8px",
           textAlign: "center",
@@ -439,7 +439,7 @@ export default component$(() => {
           width: "100%",
           height: "auto",
           display: "block",
-          maxHeight: "clamp(300px, 45vh, 500px)",
+          maxHeight: "clamp(200px, 35vh, 400px)",
           objectFit: "cover",
         }}
         width={IMAGE_WIDTH}
@@ -448,7 +448,7 @@ export default component$(() => {
       <div
         style={{
           backgroundColor: colors.bg.card,
-          padding: 12,
+          padding: "1rem",
         }}
       >
         {showResultsSignal.value ? (
