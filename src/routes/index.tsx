@@ -421,12 +421,18 @@ export default component$(() => {
           width: "100%",
           height: "auto",
           display: "block",
-          maxHeight: "42vh",
+          maxHeight: "clamp(300px, 45vh, 500px)",
+          objectFit: "cover",
         }}
         width={IMAGE_WIDTH}
         height={IMAGE_HEIGHT}
       />
-      <div style={{ backgroundColor: colors.bg.card, padding: ".6rem" }}>
+      <div
+        style={{
+          backgroundColor: colors.bg.card,
+          padding: 12,
+        }}
+      >
         {showResultsSignal.value ? (
           <Results correctAnswersSignal={correctAnswersSignal} quiz={quiz} />
         ) : (
