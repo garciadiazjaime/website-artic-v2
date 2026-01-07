@@ -56,34 +56,39 @@ export const useQuiz = routeLoader$(async ({ env }) => {
 });
 
 const updateStreak = () => {
-  const lastDate = localStorage.getItem("lastDate");
-  const now = new Date();
+  const streak = JSON.parse(localStorage.getItem("streak") || "{}");
+  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
-  if (!lastDate) {
-    localStorage.setItem("lastDate", now.toISOString());
+  const initialStreak = { date: today, streak: 1 };
+
+  const isFirstTimePlaying = !streak.date;
+  if (isFirstTimePlaying) {
+    localStorage.setItem("streak", JSON.stringify(initialStreak));
     return;
   }
 
-  const lastDateTime = new Date(lastDate);
-  const diffInMs = now.getTime() - lastDateTime.getTime();
-  const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+  const alreadyPlayedToday = streak.date === today;
+  if (alreadyPlayedToday) {
+    return;
+  }
 
-  if (diffInDays > 1) {
-    localStorage.setItem("lastDate", now.toISOString());
+  // Calculate yesterday's date
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+  const wasPlayedYesterday = streak.date === yesterdayStr;
+  if (wasPlayedYesterday) {
+    streak.streak += 1;
+    streak.date = today;
+    localStorage.setItem("streak", JSON.stringify(streak));
   }
 };
 
 const getStreak = () => {
-  const lastDate = localStorage.getItem("lastDate");
-  if (!lastDate) {
-    return 1;
-  }
+  const streak = JSON.parse(localStorage.getItem("streak") || "{}");
 
-  const lastDateTime = new Date(lastDate);
-  const diffInMs = new Date().getTime() - lastDateTime.getTime();
-  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-
-  return diffInDays + 1;
+  return streak.streak || 1;
 };
 
 interface QuestionsProps {
@@ -164,7 +169,8 @@ const Questions = component$<QuestionsProps>((props) => {
         }}
       >
         <span style={{ opacity: 0.7, fontSize: "0.875rem" }}>
-          {currentQuestionIndexSignal.value + 1}/7{" "}
+          {currentQuestionIndexSignal.value + 1}/
+          {props.quiz.value.questions.length}{" "}
         </span>
         {currentQuestion.question_text}
       </h2>
@@ -207,8 +213,8 @@ const Questions = component$<QuestionsProps>((props) => {
                 currentQuestionIndexSignal.value ===
                 props.quiz.value.questions.length - 1;
               if (isSeeResultsRequested) {
-                props.showResultsSignal.value = true;
                 updateStreak();
+                props.showResultsSignal.value = true;
                 return;
               }
 
