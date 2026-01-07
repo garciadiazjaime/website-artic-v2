@@ -32,3 +32,14 @@ body {
   margin: 0;
   line-height: inherit;
 }
+
+/* Better touch handling on mobile */
+button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 0.15s ease-out;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
+}

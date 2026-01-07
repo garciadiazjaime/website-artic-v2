@@ -127,15 +127,25 @@ const Questions = component$<QuestionsProps>((props) => {
     return {
       width: "100%",
       textAlign: "left" as const,
-      padding: "0.875rem",
+      padding: "1rem",
       border: "2px solid",
+      borderRadius: "8px",
       borderColor,
       backgroundColor,
       cursor: "pointer",
-      marginBottom: "0.5rem",
-      transition: "all 0.2s",
-      fontSize: "0.95rem",
+      marginBottom: "0.75rem",
+      transition: "all 0.15s ease-out",
+      fontSize: "1rem",
       color: colors.text.primary,
+      fontWeight: "500",
+      boxShadow:
+        selectedAnswerSignal.value === key && !revealedAnswerSignal.value
+          ? "0 2px 8px rgba(59, 130, 246, 0.2)"
+          : "0 1px 3px rgba(0, 0, 0, 0.05)",
+      transform:
+        selectedAnswerSignal.value === key && !revealedAnswerSignal.value
+          ? "scale(0.98)"
+          : "scale(1)",
     };
   };
 
@@ -146,15 +156,19 @@ const Questions = component$<QuestionsProps>((props) => {
     }
 
     return {
-      padding: "0.875rem 1.5rem",
+      padding: "1rem 1.5rem",
       backgroundColor: !selectedAnswerSignal.value ? colors.border : bgColor,
       color: colors.white,
       fontWeight: "600",
-      fontSize: "1rem",
+      fontSize: "1.0625rem",
       cursor: !selectedAnswerSignal.value ? "not-allowed" : "pointer",
       border: "none",
-      transition: "background-color 0.2s",
+      borderRadius: "8px",
+      transition: "all 0.15s ease-out",
       width: "100%",
+      boxShadow: selectedAnswerSignal.value
+        ? "0 4px 12px rgba(59, 130, 246, 0.25)"
+        : "none",
     };
   };
 
@@ -253,6 +267,7 @@ const Results = component$<ResultsProps>((props) => {
           marginBottom: "1rem",
           border: `2px solid ${colors.primary}`,
           textAlign: "center",
+          borderRadius: "8px",
         }}
       >
         <p
@@ -283,6 +298,7 @@ const Results = component$<ResultsProps>((props) => {
           padding: ".75rem",
           marginBottom: "1rem",
           border: `2px solid ${colors.border}`,
+          borderRadius: "8px",
           textAlign: "center",
         }}
       >
@@ -313,6 +329,7 @@ const Results = component$<ResultsProps>((props) => {
           backgroundColor: colors.bg.page,
           padding: "1rem",
           border: `2px solid ${colors.border}`,
+          borderRadius: "8px",
           textAlign: "center",
         }}
       >
@@ -352,6 +369,7 @@ const Results = component$<ResultsProps>((props) => {
             style={{
               backgroundColor: colors.bg.page,
               padding: "1rem",
+              borderRadius: "8px",
             }}
           >
             {props.quiz.value.provenance.map((line, index) => (
