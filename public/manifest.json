@@ -1,7 +1,7 @@
 {
   "name": "Artic Quiz",
   "short_name": "Artic Quiz",
-  "description": "Seven Questions a Day from the Art Institute of Chicago",
+  "description": "Five Questions a Day from the Art Institute of Chicago",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
