@@ -440,7 +440,7 @@ export default component$(() => {
           height: "auto",
           display: "block",
           maxHeight: "clamp(200px, 35vh, 400px)",
-          objectFit: "contain",
+          objectFit: "cover",
         }}
         width={IMAGE_WIDTH}
         height={IMAGE_HEIGHT}
