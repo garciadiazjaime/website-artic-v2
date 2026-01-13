@@ -431,6 +431,7 @@ export default component$(() => {
         backgroundColor: colors.bg.page,
         position: "relative",
       }}
+      data-date={new Date().toJSON()}
     >
       <img
         src={quiz.value.image}
@@ -440,7 +441,7 @@ export default component$(() => {
           height: "auto",
           display: "block",
           maxHeight: "clamp(200px, 35vh, 400px)",
-          objectFit: "cover",
+          objectFit: "contain",
         }}
         width={IMAGE_WIDTH}
         height={IMAGE_HEIGHT}
