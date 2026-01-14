@@ -49,10 +49,14 @@ interface Quiz {
 }
 
 export const useQuiz = routeLoader$(async ({ env }) => {
-  const today = new Date().toJSON().split("T")[0];
-  const url = `${env.get("QUIZ_URL")}/${today}.json`;
+  const today = new Date().toJSON();
+  const url = `${env.get("QUIZ_URL")}/${today.split("T")[0]}.json`;
   const response = await fetch(url);
-  return (await response.json()) as Quiz;
+  const quiz = (await response.json()) as Quiz;
+  return {
+    quiz,
+    today,
+  };
 });
 
 const updateStreak = () => {
@@ -94,7 +98,7 @@ const getStreak = () => {
 interface QuestionsProps {
   correctAnswersSignal: Signal<number>;
   showResultsSignal: Signal<boolean>;
-  quiz: Signal<Quiz>;
+  quiz: Quiz;
 }
 
 const Questions = component$<QuestionsProps>((props) => {
@@ -103,7 +107,7 @@ const Questions = component$<QuestionsProps>((props) => {
   const currentQuestionIndexSignal = useSignal(0);
 
   const currentQuestion =
-    props.quiz.value.questions[currentQuestionIndexSignal.value];
+    props.quiz.questions[currentQuestionIndexSignal.value];
 
   const getOptionStyle = (key: string) => {
     let borderColor = colors.border;
@@ -184,7 +188,7 @@ const Questions = component$<QuestionsProps>((props) => {
       >
         <span style={{ opacity: 0.7, fontSize: "0.875rem" }}>
           {currentQuestionIndexSignal.value + 1}/
-          {props.quiz.value.questions.length}{" "}
+          {props.quiz.questions.length}{" "}
         </span>
         {currentQuestion.question_text}
       </h2>
@@ -225,7 +229,7 @@ const Questions = component$<QuestionsProps>((props) => {
             } else {
               const isSeeResultsRequested =
                 currentQuestionIndexSignal.value ===
-                props.quiz.value.questions.length - 1;
+                props.quiz.questions.length - 1;
               if (isSeeResultsRequested) {
                 updateStreak();
                 props.showResultsSignal.value = true;
@@ -242,7 +246,7 @@ const Questions = component$<QuestionsProps>((props) => {
         >
           {revealedAnswerSignal.value
             ? currentQuestionIndexSignal.value ===
-              props.quiz.value.questions.length - 1
+              props.quiz.questions.length - 1
               ? "See Results"
               : "Next"
             : "Submit"}
@@ -254,7 +258,7 @@ const Questions = component$<QuestionsProps>((props) => {
 
 interface ResultsProps {
   correctAnswersSignal: Signal<number>;
-  quiz: Signal<Quiz>;
+  quiz: Quiz;
 }
 const Results = component$<ResultsProps>((props) => {
   const streak = getStreak();
@@ -278,7 +282,7 @@ const Results = component$<ResultsProps>((props) => {
             color: colors.primary,
           }}
         >
-          {props.correctAnswersSignal.value}/{props.quiz.value.questions.length}
+          {props.correctAnswersSignal.value}/{props.quiz.questions.length}
         </p>
         <p
           style={{
@@ -345,7 +349,7 @@ const Results = component$<ResultsProps>((props) => {
         </p>
       </div>
 
-      {props.quiz.value?.provenance?.length ? (
+      {props.quiz.provenance?.length ? (
         <div
           style={{
             marginTop: "1.5rem",
@@ -372,7 +376,7 @@ const Results = component$<ResultsProps>((props) => {
               borderRadius: "8px",
             }}
           >
-            {props.quiz.value.provenance.map((line, index) => (
+            {props.quiz.provenance.map((line, index) => (
               <div
                 key={index}
                 style={{
@@ -381,16 +385,14 @@ const Results = component$<ResultsProps>((props) => {
                   lineHeight: "1.6",
                   color: colors.text.secondary,
                   marginBottom:
-                    index < props.quiz.value.provenance.length - 1
-                      ? "0.75rem"
-                      : 0,
+                    index < props.quiz.provenance.length - 1 ? "0.75rem" : 0,
                 }}
               >
                 <span style={{ marginRight: "0.5rem", flexShrink: 0 }}>•</span>
                 <span
                   style={{
                     fontWeight:
-                      props.quiz.value.provenance.length - 1 === index
+                      props.quiz.provenance.length - 1 === index
                         ? "bold"
                         : "normal",
                   }}
@@ -420,7 +422,8 @@ export const head: DocumentHead = {
 export default component$(() => {
   const showResultsSignal = useSignal(false);
   const correctAnswersSignal = useSignal(0);
-  const quiz = useQuiz();
+  const quizData = useQuiz();
+  const { today, quiz } = quizData.value;
 
   return (
     <main
@@ -431,10 +434,10 @@ export default component$(() => {
         backgroundColor: colors.bg.page,
         position: "relative",
       }}
-      data-date={new Date().toJSON()}
+      data-date={today}
     >
       <img
-        src={quiz.value.image}
+        src={quiz.image}
         alt="Quiz Image"
         style={{
           width: "100%",
