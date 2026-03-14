@@ -42,6 +42,6 @@ lerna-debug.log*
 !.yarn/releases
 
 # Netlify
-.netlify
-
-netlify/edge-functions/
+.netlify/
+netlify/edge-functions/*
+!netlify/edge-functions/entry.netlify-edge/qwik-city-not-found-paths.js

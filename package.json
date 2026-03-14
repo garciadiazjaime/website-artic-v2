@@ -21,7 +21,7 @@
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik",
-    "postbuild": "cp .netlify/edge-functions/entry.netlify-edge/@qwik-city-not-found-paths.js .netlify/edge-functions/entry.netlify-edge/qwik-city-not-found-paths.js"
+    "postbuild": "cp .netlify/edge-functions/entry.netlify-edge/@qwik-city-not-found-paths.js .netlify/edge-functions/entry.netlify-edge/qwik-city-not-found-paths.js && cp .netlify/edge-functions/entry.netlify-edge/@qwik-city-not-found-paths.js netlify/edge-functions/entry.netlify-edge/qwik-city-not-found-paths.js"
   },
   "devDependencies": {
     "@builder.io/qwik": "1.11.0",
