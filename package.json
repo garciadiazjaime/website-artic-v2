@@ -1,7 +1,7 @@
 {
   "name": "my-e2e-library",
   "engines": {
-    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
+    "node": "^20.3.0"
   },
   "engines-annotation": "Mostly required by sharp which needs a Node-API v9 compatible runtime",
   "private": true,
@@ -23,13 +23,13 @@
     "qwik": "qwik"
   },
   "devDependencies": {
-    "@builder.io/qwik": "^1.19.2",
-    "@builder.io/qwik-city": "^1.19.2",
+    "@builder.io/qwik": "1.19.2",
+    "@builder.io/qwik-city": "1.19.2",
     "@eslint/js": "^9",
     "@netlify/edge-functions": "^2.0.0",
     "@types/node": "20.19.0",
     "eslint": "9.32.0",
-    "eslint-plugin-qwik": "^1.19.2",
+    "eslint-plugin-qwik": "1.19.2",
     "globals": "16.4.0",
     "netlify-cli": "^15.0.0",
     "prettier": "3.6.2",
