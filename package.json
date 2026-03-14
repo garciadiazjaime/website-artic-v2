@@ -21,7 +21,7 @@
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
     "qwik": "qwik",
-    "postbuild": "node -e \"const fs=require('fs');const f='.netlify/edge-functions/entry.netlify-edge/entry.netlify-edge.js';fs.writeFileSync(f,fs.readFileSync(f,'utf8').replaceAll('@qwik-city-not-found-paths','qwik-city-not-found-paths'));\" && cp .netlify/edge-functions/entry.netlify-edge/@qwik-city-not-found-paths.js .netlify/edge-functions/entry.netlify-edge/qwik-city-not-found-paths.js"
+    "postbuild": "node scripts/postbuild.mjs"
   },
   "devDependencies": {
     "@builder.io/qwik": "1.11.0",
