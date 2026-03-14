@@ -51,6 +51,7 @@ interface Quiz {
 export const useQuiz = routeLoader$(async ({ env }) => {
   const today = new Date().toJSON();
   const url = `${env.get("QUIZ_URL")}/${today.split("T")[0]}.json`;
+  console.info(`Fetching url`, { url });
   const response = await fetch(url);
   const quiz = (await response.json()) as Quiz;
   return {
