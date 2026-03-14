@@ -43,3 +43,5 @@ lerna-debug.log*
 
 # Netlify
 .netlify
+
+netlify/edge-functions/
