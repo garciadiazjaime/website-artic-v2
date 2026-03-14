@@ -2,9 +2,5 @@
   publish = "dist"
   command = "npm run build"
 
-[[edge_functions]]
-  path = "/*"
-  function = "entry.netlify-edge"
-
 [context.production.environment]
   QUIZ_URL = "${QUIZ_URL}"
