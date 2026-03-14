@@ -20,7 +20,8 @@
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
     "start": "vite --open --mode ssr",
-    "qwik": "qwik"
+    "qwik": "qwik",
+    "postbuild": "cp .netlify/edge-functions/entry.netlify-edge/@qwik-city-not-found-paths.js .netlify/edge-functions/entry.netlify-edge/qwik-city-not-found-paths.js"
   },
   "devDependencies": {
     "@builder.io/qwik": "1.11.0",
