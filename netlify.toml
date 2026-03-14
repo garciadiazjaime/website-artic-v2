@@ -4,3 +4,10 @@ command = "npm run build"
 
 [context.production.environment]
   QUIZ_URL = "${QUIZ_URL}"
+
+[[edge_functions]]
+  path = "/*"
+  function = "entry.netlify-edge"
+
+[build.environment]
+  NODE_VERSION = "24"
